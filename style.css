@@ -1046,3 +1046,35 @@ main{
   from{transform:translateX(-100%);}
   to{transform:translateX(100%);}
 }
+/* Letter-by-letter animation */
+.name-line span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: letterReveal 0.5s forwards;
+}
+
+/* Delay for each letter */
+.name-line span:nth-child(1) { animation-delay: 0.1s; }
+.name-line span:nth-child(2) { animation-delay: 0.2s; }
+.name-line span:nth-child(3) { animation-delay: 0.3s; }
+.name-line span:nth-child(4) { animation-delay: 0.4s; }
+.name-line span:nth-child(5) { animation-delay: 0.5s; }
+.name-line span:nth-child(6) { animation-delay: 0.6s; }
+.name-line span:nth-child(7) { animation-delay: 0.7s; }
+.name-line span:nth-child(8) { animation-delay: 0.8s; }
+.name-line span:nth-child(9) { animation-delay: 0.9s; }
+.name-line span:nth-child(10) { animation-delay: 1s; }
+
+@keyframes letterReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    text-shadow: 0 0 0 gold;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+  }
+}
