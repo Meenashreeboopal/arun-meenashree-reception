@@ -1,18 +1,60 @@
-Yes — that's actually the best way to do it. Since your style.css is currently one compact CSS file, I can give you the entire existing file with only the required changes, so you can replace the whole contents in one go.
-I checked the current file from your GitHub repository. �
-GitHub
-What I'm changing
-Only these things:
-Black opening → warm ivory/champagne
-Dark opening overlay → soft cream/gold overlay
-Opening button → champagne-gold bordered button
-Everything else stays as it is for now.
-I am not changing the photo paths yet — we'll do that separately so we don't accidentally break anything.
-Replace the ENTIRE contents of style.css with this
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:#f7f0e6;color:#382a24;font-family:"Cormorant Garamond",serif}
-body.locked{overflow:hidden}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#f8f1e7;
+  color:#3d2b25;
+  font-family:"Cormorant Garamond",serif;
+  overflow-x:hidden;
+}
+
+body.locked{
+  overflow:hidden;
+}
+
+/* =========================
+   LUXURY COLOR VARIABLES
+========================= */
+
+:root{
+  --ivory:#faf4ea;
+  --cream:#f5eadc;
+  --blush:#ead2ca;
+  --rose:#b97869;
+  --gold:#b18a52;
+  --gold-light:#d9bd87;
+  --brown:#4a3028;
+  --soft-brown:#72564b;
+  --white:#fffaf3;
+}
+
+/* =========================
+   GLOBAL DECORATIVE BACKGROUND
+========================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.35;
+  background:
+    radial-gradient(circle at 10% 20%,rgba(217,189,135,.18) 0 2px,transparent 3px),
+    radial-gradient(circle at 80% 30%,rgba(185,120,105,.12) 0 2px,transparent 3px),
+    radial-gradient(circle at 30% 80%,rgba(217,189,135,.14) 0 2px,transparent 3px);
+  background-size:120px 120px,170px 170px,200px 200px;
+}
+
+/* =========================
+   OPENING SCREEN
+========================= */
 
 .opening{
   position:fixed;
@@ -20,71 +62,129 @@ body.locked{overflow:hidden}
   z-index:100;
   display:grid;
   place-items:center;
-  background:#f7efe2;
-  color:#4a3025;
-  overflow:hidden
+  background:var(--ivory);
+  color:var(--brown);
+  overflow:hidden;
 }
 
 .opening-image{
   position:absolute;
   inset:0;
   background:url("hands.jpg") center/cover no-repeat;
-  filter:blur(.2px)
+  transform:scale(1.04);
+  animation:openingZoom 8s ease-out forwards;
 }
 
 .opening-shade{
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    90deg,
-    rgba(247,239,226,.82),
-    rgba(255,248,235,.48),
-    rgba(247,239,226,.82)
-  )
+  background:
+    linear-gradient(
+      135deg,
+      rgba(250,244,234,.94),
+      rgba(250,244,234,.72),
+      rgba(239,211,202,.72),
+      rgba(250,244,234,.92)
+    );
+}
+
+.opening::before,
+.opening::after{
+  content:"";
+  position:absolute;
+  border:1px solid rgba(177,138,82,.35);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.opening::before{
+  width:420px;
+  height:420px;
+  top:-180px;
+  left:-160px;
+}
+
+.opening::after{
+  width:500px;
+  height:500px;
+  right:-230px;
+  bottom:-230px;
 }
 
 .opening-content{
   position:relative;
   text-align:center;
-  padding:30px;
-  max-width:700px;
-  animation:fadeUp 1.2s ease
+  padding:35px;
+  max-width:800px;
+  animation:openingContent 1.5s ease forwards;
 }
 
-.opening h1{
-  font-size:clamp(3.3rem,9vw,7rem);
-  line-height:.75;
-  margin:15px 0 25px;
-  font-weight:500
-}
-
-.opening h1 span,.closing h2 span{
-  font-size:.55em;
-  font-style:italic
+.ornament{
+  font-size:2.2rem;
+  color:var(--gold);
+  letter-spacing:.15em;
+  animation:ornamentFloat 3s ease-in-out infinite;
 }
 
 .eyebrow{
-  letter-spacing:.22em;
-  font-size:.72rem;
-  margin:0 0 14px;
-  text-transform:uppercase
+  letter-spacing:.24em;
+  font-size:.7rem;
+  margin:15px 0;
+  text-transform:uppercase;
+  color:var(--soft-brown);
 }
 
-.date,.hero-date{letter-spacing:.18em}
-.ornament{font-size:2rem}
+.opening h1{
+  font-size:clamp(3.2rem,9vw,7rem);
+  line-height:.78;
+  margin:20px 0 28px;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--brown);
+}
 
-.opening button,.button{
-  border:1px solid #a77b45;
-  background:rgba(255,250,240,.72);
-  color:inherit;
-  padding:13px 26px;
+.opening h1 span,
+.closing h2 span{
+  font-size:.48em;
+  font-style:italic;
+  color:var(--gold);
+}
+
+.date{
+  letter-spacing:.18em;
+  font-size:1rem;
+}
+
+.opening button,
+.button{
+  border:1px solid var(--gold);
+  background:rgba(255,250,243,.82);
+  color:var(--brown);
+  padding:14px 32px;
   font-family:inherit;
   font-size:1rem;
+  letter-spacing:.08em;
   cursor:pointer;
   text-decoration:none;
   display:inline-block;
-  margin-top:15px
+  margin-top:18px;
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    box-shadow .3s ease;
+  box-shadow:0 8px 25px rgba(86,58,40,.08);
 }
+
+.opening button:hover,
+.button:hover{
+  transform:translateY(-3px);
+  background:#fffaf3;
+  box-shadow:0 12px 30px rgba(86,58,40,.16);
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
   height:100svh;
@@ -94,196 +194,397 @@ body.locked{overflow:hidden}
   place-items:center;
   color:#fff;
   text-align:center;
-  overflow:hidden
+  overflow:hidden;
 }
 
 .hero-photo{
   position:absolute;
   inset:0;
-  background:url("assets/couple-outdoor.jpg") center/cover no-repeat;
-  transform:scale(1.03)
+  background:url("couple-outdoor.jpg") center/cover no-repeat;
+  transform:scale(1.04);
+  animation:heroZoom 12s ease-out forwards;
 }
 
 .hero-overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(15,12,8,.12),rgba(15,12,8,.62))
+  background:
+    linear-gradient(
+      180deg,
+      rgba(35,20,15,.12),
+      rgba(35,20,15,.32),
+      rgba(35,20,15,.72)
+    );
 }
 
 .hero-content{
   position:relative;
-  padding:20px;
-  max-width:900px
+  padding:30px 20px;
+  max-width:950px;
+  animation:heroContent 1.5s ease forwards;
+}
+
+.hero .eyebrow{
+  color:rgba(255,250,243,.88);
 }
 
 .hero h2{
-  font-size:clamp(2.5rem,6vw,5.5rem);
+  font-size:clamp(2.3rem,6vw,5.2rem);
   font-weight:500;
-  margin:0 0 10px
+  margin:8px 0 25px;
+  letter-spacing:.02em;
 }
 
-.names{font-size:clamp(1.8rem,4vw,3rem)}
-.names span{font-size:.65em;margin:0 12px}
+/* =========================
+   COUPLE NAMES
+========================= */
+
+.names{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  width:100%;
+  font-size:clamp(2.2rem,5.5vw,4.8rem);
+  line-height:1;
+  margin:20px auto 25px;
+  font-weight:500;
+}
+
+.name-line{
+  display:block;
+  width:100%;
+  text-align:center;
+  letter-spacing:.02em;
+}
+
+.name-arun{
+  animation:nameFromTop 1.2s .3s ease both;
+}
+
+.name-meenashree{
+  animation:nameFromBottom 1.2s .8s ease both;
+}
+
+.heart-line{
+  display:block;
+  width:100%;
+  text-align:center;
+  font-family:Arial,sans-serif;
+  font-size:.42em;
+  line-height:1;
+  margin:15px 0;
+  color:#e3b96f;
+  text-shadow:0 2px 15px rgba(0,0,0,.25);
+  animation:heartAppear 1s 1.2s ease both,
+             heartPulse 2.5s 2.2s ease-in-out infinite;
+}
+
+.hero-date{
+  letter-spacing:.14em;
+  font-size:.95rem;
+  max-width:650px;
+  margin:25px auto 0;
+  line-height:1.7;
+}
 
 .scroll-link{
   display:inline-block;
   color:#fff;
   text-decoration:none;
-  margin-top:45px;
+  margin-top:40px;
   font-size:.9rem;
-  letter-spacing:.08em
+  letter-spacing:.1em;
+  transition:transform .3s ease;
 }
 
-.intro,.countdown-section,.invitation-section{
-  padding:110px 24px;
-  text-align:center
+.scroll-link:hover{
+  transform:translateY(4px);
 }
 
-.intro{max-width:850px;margin:auto}
-.dark{color:#8b5946}
+/* =========================
+   INTRO
+========================= */
+
+.intro{
+  max-width:900px;
+  margin:auto;
+  padding:120px 25px;
+  text-align:center;
+  position:relative;
+}
+
+.intro::before{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  border:1px solid rgba(177,138,82,.2);
+  border-radius:50%;
+  left:-80px;
+  top:80px;
+}
+
+.dark{
+  color:var(--gold);
+}
 
 .tamil{
   font-family:"Noto Serif Tamil",serif;
   font-size:clamp(1.1rem,2vw,1.5rem);
-  line-height:1.9
+  line-height:1.9;
+  color:#735449;
 }
 
-.intro-text{font-size:1.25rem;line-height:1.7}
-.countdown-section{background:#eadbc8}
-
-.countdown-section h2,.invitation-section h2{
-  font-size:clamp(2.7rem,5vw,4.5rem);
-  font-weight:500;
-  margin:0 0 45px
+.intro-text{
+  font-size:1.25rem;
+  line-height:1.8;
+  max-width:720px;
+  margin:25px auto 0;
+  color:#5f4840;
 }
 
-.countdown{
-  display:flex;
-  justify-content:center;
-  gap:clamp(15px,5vw,70px);
-  flex-wrap:wrap
-}
-
-.countdown div{min-width:90px}
-.countdown strong{
-  display:block;
-  font-size:clamp(2.3rem,5vw,4rem);
-  font-weight:500
-}
-
-.countdown span{
-  font-size:.75rem;
-  letter-spacing:.15em;
-  text-transform:uppercase
-}
+/* =========================
+   RECEPTION DETAILS
+========================= */
 
 .event-section{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr;
   max-width:1100px;
   margin:0 auto;
-  padding:110px 24px;
-  gap:25px
+  padding:100px 24px;
+  gap:25px;
 }
 
 .event-card{
-  background:#fffaf3;
+  position:relative;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,250,243,.96),
+      rgba(246,231,218,.94)
+    );
   text-align:center;
-  padding:60px 30px;
-  border:1px solid #e4d6c5
+  padding:75px 35px;
+  border:1px solid rgba(177,138,82,.45);
+  box-shadow:
+    0 25px 70px rgba(77,51,37,.10),
+    inset 0 0 0 8px rgba(255,255,255,.22);
+  overflow:hidden;
 }
 
-.event-icon{font-size:1.5rem;color:#9b604a}
+.event-card::before,
+.event-card::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  border:1px solid rgba(177,138,82,.3);
+  border-radius:50%;
+}
+
+.event-card::before{
+  left:-45px;
+  top:-45px;
+}
+
+.event-card::after{
+  right:-45px;
+  bottom:-45px;
+}
+
+.event-icon{
+  font-size:1.5rem;
+  color:var(--gold);
+}
 
 .event-card h2{
-  font-size:2.5rem;
+  font-size:clamp(2.4rem,5vw,4rem);
   font-weight:500;
-  margin:8px 0
+  margin:10px 0;
+  color:var(--brown);
 }
 
-.event-date{font-size:1.2rem}
+.event-date{
+  font-size:1.25rem;
+  color:#644b41;
+}
 
-.event-note{
-  min-height:50px;
-  line-height:1.6;
-  color:#705d53
+.event-time{
+  font-size:1.3rem;
+  letter-spacing:.08em;
+  margin:12px 0 22px;
+  color:var(--rose);
+}
+
+.event-venue{
+  font-size:1.05rem;
+  line-height:1.9;
+  letter-spacing:.04em;
+  color:#6b5147;
+}
+
+.event-venue strong{
+  font-size:1.2rem;
+  letter-spacing:.08em;
+  color:var(--brown);
 }
 
 .event-card .button{
-  color:#5a3c31;
-  border-color:#9f7b69
+  color:var(--brown);
+  border-color:var(--gold);
 }
 
-.button.disabled{opacity:.5;cursor:not-allowed}
+/* =========================
+   PHOTO SECTION
+========================= */
 
 .photo-section{
   display:grid;
   grid-template-columns:1.3fr .9fr .7fr;
-  min-height:620px;
-  align-items:stretch
+  min-height:650px;
+  align-items:stretch;
+  overflow:hidden;
 }
 
-.photo-large,.photo-small{overflow:hidden}
+.photo-large,
+.photo-small{
+  overflow:hidden;
+  position:relative;
+}
 
-.photo-large img,.photo-small img,.gallery img{
+.photo-large img,
+.photo-small img,
+.gallery img{
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block
+  display:block;
+  transition:transform 1s ease;
+}
+
+.photo-large:hover img,
+.photo-small:hover img,
+.gallery-item:hover img{
+  transform:scale(1.04);
 }
 
 .photo-copy{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:60px;
-  background:#d9c0a8
+  padding:65px;
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(255,255,255,.6),
+      transparent 40%
+    ),
+    linear-gradient(135deg,#ead2ca,#f3dfd6);
+  color:var(--brown);
 }
 
 .photo-copy h2{
   font-size:clamp(2.7rem,4vw,4.4rem);
   font-weight:500;
   line-height:.95;
-  margin:10px 0 25px
+  margin:10px 0 25px;
 }
 
 .photo-copy p:last-child{
   font-size:1.15rem;
-  line-height:1.7
+  line-height:1.8;
+  color:#654c43;
 }
 
-.invitation-section{background:#f2e7d7}
+/* =========================
+   INVITATION
+========================= */
+
+.invitation-section{
+  padding:120px 24px;
+  text-align:center;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(217,189,135,.18),
+      transparent 40%
+    ),
+    #f5e9dc;
+}
 
 .invitation-paper{
-  max-width:650px;
+  position:relative;
+  max-width:700px;
   margin:auto;
-  padding:70px 35px;
-  background:#fbf7ef;
-  border:1px solid #d6c0a6;
-  box-shadow:0 18px 55px rgba(70,45,25,.1)
+  padding:80px 45px;
+  background:#fffaf3;
+  border:1px solid rgba(177,138,82,.5);
+  box-shadow:
+    0 30px 80px rgba(70,45,25,.13),
+    inset 0 0 0 10px rgba(217,189,135,.08);
 }
 
-.invitation-paper h2{margin-bottom:10px}
+.invitation-paper::before,
+.invitation-paper::after{
+  content:"";
+  position:absolute;
+  width:55px;
+  height:55px;
+  border:1px solid rgba(177,138,82,.45);
+}
 
-.invitation-paper .button{
-  color:#5a3c31;
-  border-color:#9f7b69
+.invitation-paper::before{
+  top:18px;
+  left:18px;
+  border-right:0;
+  border-bottom:0;
+}
+
+.invitation-paper::after{
+  right:18px;
+  bottom:18px;
+  border-left:0;
+  border-top:0;
+}
+
+.invitation-paper h2{
+  font-size:clamp(2.6rem,5vw,4rem);
+  font-weight:500;
+  color:var(--brown);
 }
 
 .placeholder{
-  line-height:1.7;
+  line-height:1.8;
   max-width:500px;
-  margin:20px auto
+  margin:20px auto;
+  color:#654c43;
 }
+
+/* =========================
+   GALLERY
+========================= */
 
 .gallery{
   display:grid;
   grid-template-columns:1.5fr 1fr 1fr;
-  min-height:600px
+  min-height:600px;
 }
 
-.gallery-item{height:600px}
-.gallery-item.wide{height:600px}
+.gallery-item{
+  height:600px;
+  overflow:hidden;
+}
+
+.gallery-item.wide{
+  height:600px;
+}
+
+/* =========================
+   CLOSING
+========================= */
 
 .closing{
   height:90svh;
@@ -293,56 +594,83 @@ body.locked{overflow:hidden}
   place-items:center;
   color:#fff;
   text-align:center;
-  overflow:hidden
+  overflow:hidden;
 }
 
 .closing-image{
   position:absolute;
   inset:0;
-  background:url("assets/couple-wall.jpg") center/cover no-repeat
+  background:url("couple-wall.jpg") center/cover no-repeat;
+  transform:scale(1.03);
 }
 
 .closing-shade{
   position:absolute;
   inset:0;
-  background:rgba(24,16,12,.48)
+  background:
+    linear-gradient(
+      180deg,
+      rgba(35,20,15,.2),
+      rgba(35,20,15,.7)
+    );
 }
 
-.closing-content{position:relative}
+.closing-content{
+  position:relative;
+  padding:30px;
+  animation:closingFade 2s ease both;
+}
 
 .closing h2{
   font-size:clamp(3rem,8vw,6.5rem);
   line-height:.72;
   font-weight:500;
-  margin:15px 0 35px
+  margin:15px 0 35px;
 }
+
+.closing p{
+  font-size:1.15rem;
+  letter-spacing:.05em;
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(20,13,10,.75);
-  backdrop-filter:blur(8px);
+  background:rgba(35,22,17,.72);
+  backdrop-filter:blur(10px);
   z-index:200;
   display:none;
   place-items:center;
-  padding:25px
+  padding:25px;
 }
 
-.modal.show{display:grid}
+.modal.show{
+  display:grid;
+}
 
 .modal-card{
-  max-width:650px;
-  background:#fbf7ef;
-  padding:70px 40px;
-  text-align:center
+  position:relative;
+  max-width:680px;
+  width:100%;
+  background:#fffaf3;
+  padding:75px 45px;
+  text-align:center;
+  border:1px solid rgba(177,138,82,.5);
+  box-shadow:0 30px 90px rgba(0,0,0,.25);
 }
 
 .modal-card h2{
-  font-size:3rem;
-  font-weight:500
+  font-size:clamp(2.3rem,5vw,3.5rem);
+  font-weight:500;
 }
 
-.modal-card p{line-height:1.7}
+.modal-card p{
+  line-height:1.8;
+}
 
 .modal-close{
   position:absolute;
@@ -352,54 +680,213 @@ body.locked{overflow:hidden}
   border:0;
   color:#fff;
   font-size:3rem;
-  cursor:pointer
+  cursor:pointer;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(25px)}
-  to{opacity:1;transform:translateY(0)}
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes openingZoom{
+  from{transform:scale(1.04)}
+  to{transform:scale(1.12)}
 }
+
+@keyframes openingContent{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes heroZoom{
+  from{transform:scale(1.04)}
+  to{transform:scale(1.1)}
+}
+
+@keyframes heroContent{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes nameFromTop{
+  from{
+    opacity:0;
+    transform:translateY(-35px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes nameFromBottom{
+  from{
+    opacity:0;
+    transform:translateY(35px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes heartAppear{
+  from{
+    opacity:0;
+    transform:scale(.3);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+@keyframes heartPulse{
+  0%,100%{
+    transform:scale(1);
+  }
+  50%{
+    transform:scale(1.16);
+  }
+}
+
+@keyframes ornamentFloat{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-5px);
+  }
+}
+
+@keyframes closingFade{
+  from{
+    opacity:0;
+    transform:translateY(25px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
-  .event-section,.photo-section,.gallery{grid-template-columns:1fr}
-  .photo-section{display:flex;flex-direction:column}
-  .photo-large{height:65vh}
-  .photo-small{height:55vh}
-  .photo-copy{min-height:380px}
-  .gallery-item,.gallery-item.wide{height:70vh}
-  .gallery-item.wide{height:65vh}
-  .opening h1{line-height:.82}
-  .hero{min-height:620px}
-  .intro,.countdown-section,.invitation-section{padding:80px 20px}
+
+  .opening-content{
+    padding:25px;
+  }
+
+  .opening h1{
+    font-size:clamp(3rem,14vw,5rem);
+    line-height:.8;
+  }
+
+  .hero{
+    min-height:680px;
+  }
+
+  .hero h2{
+    font-size:clamp(2rem,9vw,3.5rem);
+  }
+
+  .names{
+    font-size:clamp(2.2rem,11vw,4rem);
+  }
+
+  .heart-line{
+    margin:12px 0;
+  }
+
+  .hero-date{
+    font-size:.9rem;
+    padding:0 15px;
+  }
+
+  .intro{
+    padding:90px 22px;
+  }
+
+  .event-section{
+    padding:80px 18px;
+  }
+
+  .event-card{
+    padding:60px 22px;
+  }
+
+  .photo-section{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .photo-large{
+    height:65vh;
+    min-height:420px;
+  }
+
+  .photo-copy{
+    min-height:420px;
+    padding:55px 30px;
+  }
+
+  .photo-small{
+    height:55vh;
+    min-height:380px;
+  }
+
+  .invitation-section{
+    padding:90px 18px;
+  }
+
+  .invitation-paper{
+    padding:65px 25px;
+  }
+
+  .gallery{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-item,
+  .gallery-item.wide{
+    height:65vh;
+    min-height:420px;
+  }
+
+  .closing{
+    min-height:650px;
+  }
+
+  .closing h2{
+    font-size:clamp(3rem,14vw,5rem);
+  }
+
+  .modal-card{
+    padding:65px 25px;
+  }
 }
 
-.reception-only{
-  display:flex;
-  justify-content:center
-}
+@media(prefers-reduced-motion:reduce){
 
-.reception-only .event-card{
-  width:min(620px,100%)
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
 }
-
-.event-time{
-  font-size:1.25rem;
-  letter-spacing:.08em;
-  margin:8px 0 18px
-}
-
-.event-venue{
-  font-size:1.05rem;
-  line-height:1.8;
-  letter-spacing:.04em
-}
-
-.event-venue strong{
-  font-size:1.18rem;
-  letter-spacing:.08em
-}
-Important
-After pasting:
-Don't change anything else.
-Tap Commit changes.
-Then tell me “Done”. I'll give you the next step, which will be fixing the image paths.
