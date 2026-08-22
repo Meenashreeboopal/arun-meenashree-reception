@@ -22,13 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (enterBtn && opening) {
 
-    enterBtn.addEventListener("click", function () {
-  opening.style.animation = "fadeSlideUp 1.5s ease forwards";
-  document.body.classList.remove("locked");
+    enterBtn.addEventListener("click", () => {
+  enterBtn.classList.add("pressed");
+  opening.classList.add("opening-exit");
 
   setTimeout(() => {
     opening.style.display = "none";
-  }, 1500);
+    document.body.classList.remove("locked");
+    document.querySelector("main").classList.add("show-page");
+  }, 1800);
 });
   }
 
