@@ -1031,3 +1031,18 @@ main{
     transform:translateY(120vh) rotate(360deg);
   }
 }
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,
+    transparent 20%,
+    rgba(255,215,0,0.45) 50%,
+    transparent 80%);
+  animation:shine 3s ease-in-out;
+}
+
+@keyframes shine{
+  from{transform:translateX(-100%);}
+  to{transform:translateX(100%);}
+}
