@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => {
     opening.style.display = "none";
     document.body.classList.remove("locked");
+
+    // Add this line
     document.querySelector(".hero").classList.add("hero-reveal");
   }, 1600);
 });
