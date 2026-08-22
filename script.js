@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const invitationModal = document.getElementById("invitationModal");
   const closeModal = document.getElementById("closeModal");
 
+
   /* =========================
      INITIAL PAGE STATE
   ========================== */
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /* =========================
      OPEN INVITATION
+     SMOOTH TRANSITION
   ========================== */
 
   if (enterBtn && opening) {
@@ -25,13 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       event.stopPropagation();
 
+      // Start the smooth fade-out animation
       opening.classList.add("opening-hidden");
 
+      // Allow the main invitation page to scroll
       document.body.classList.remove("locked");
 
+      // Wait for the 1.2 second fade to finish
+      // before completely removing the opening screen
       setTimeout(function () {
         opening.style.display = "none";
-      }, 700);
+      }, 1200);
 
     });
 
