@@ -940,3 +940,33 @@ body::before{
     transform: translateY(-80px);
   }
 }
+  /* Opening screen exit */
+.opening-exit{
+  animation: luxuryOpen 1.8s ease forwards;
+}
+
+.pressed{
+  transform: scale(0.95);
+  transition: 0.3s;
+}
+
+/* Invitation page entry */
+main{
+  opacity:0;
+  transform: translateY(40px);
+}
+
+.show-page{
+  animation: pageReveal 1.5s ease forwards;
+}
+
+@keyframes luxuryOpen{
+  0%{opacity:1; transform:scale(1);}
+  50%{opacity:1; transform:scale(1.05);}
+  100%{opacity:0; transform:translateY(-80px);}
+}
+
+@keyframes pageReveal{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
