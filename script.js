@@ -104,36 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
       }
-      /* =========================
-   OPEN INVITATION SCREEN FIX
-========================= */
-
-.opening{
-  pointer-events:auto;
-}
-
-.opening-content{
-  position:relative;
-  z-index:20;
-  pointer-events:auto;
-}
-
-#enterBtn{
-  position:relative;
-  z-index:30;
-  pointer-events:auto;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.opening-hidden{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:
-    opacity .7s ease,
-    visibility .7s ease;
-  }
 
     });
 
