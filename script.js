@@ -23,14 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if (enterBtn && opening) {
 
     enterBtn.addEventListener("click", () => {
-  enterBtn.classList.add("pressed");
   opening.classList.add("opening-exit");
 
   setTimeout(() => {
     opening.style.display = "none";
     document.body.classList.remove("locked");
-    document.querySelector("main").classList.add("show-page");
-  }, 1800);
+    document.querySelector(".hero").classList.add("hero-reveal");
+  }, 1600);
 });
   }
 
