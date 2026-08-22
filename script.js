@@ -22,25 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (enterBtn && opening) {
 
-    enterBtn.addEventListener("click", function (event) {
+    enterBtn.addEventListener("click", function () {
+  opening.style.animation = "fadeSlideUp 1.5s ease forwards";
+  document.body.classList.remove("locked");
 
-      event.preventDefault();
-      event.stopPropagation();
-
-      // Start the smooth fade-out animation
-      opening.classList.add("opening-hidden");
-
-      // Allow the main invitation page to scroll
-      document.body.classList.remove("locked");
-
-      // Wait for the 1.2 second fade to finish
-      // before completely removing the opening screen
-      setTimeout(function () {
-        opening.style.display = "none";
-      }, 1200);
-
-    });
-
+  setTimeout(() => {
+    opening.style.display = "none";
+  }, 1500);
+});
   }
 
 
