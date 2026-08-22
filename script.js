@@ -1,49 +1,112 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+
   const opening = document.getElementById("opening");
   const enterBtn = document.getElementById("enterBtn");
+
   const invitationBtn = document.getElementById("invitationBtn");
   const invitationModal = document.getElementById("invitationModal");
   const closeModal = document.getElementById("closeModal");
 
+  /* =========================
+     INITIAL PAGE STATE
+  ========================== */
+
   document.body.classList.add("locked");
 
+
+  /* =========================
+     OPEN INVITATION
+  ========================== */
+
   if (enterBtn && opening) {
-    enterBtn.addEventListener("click", () => {
+
+    enterBtn.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
       opening.classList.add("opening-hidden");
+
       document.body.classList.remove("locked");
 
-      setTimeout(() => {
+      setTimeout(function () {
         opening.style.display = "none";
       }, 700);
+
     });
+
   }
+
+
+  /* =========================
+     INVITATION MODAL
+  ========================== */
 
   if (invitationBtn && invitationModal) {
-    invitationBtn.addEventListener("click", () => {
+
+    invitationBtn.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
       invitationModal.classList.add("show");
+
     });
+
   }
 
+
+  /* =========================
+     CLOSE INVITATION MODAL
+  ========================== */
+
   if (closeModal && invitationModal) {
-    closeModal.addEventListener("click", () => {
+
+    closeModal.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
       invitationModal.classList.remove("show");
+
     });
 
-    invitationModal.addEventListener("click", (event) => {
+
+    invitationModal.addEventListener("click", function (event) {
+
       if (event.target === invitationModal) {
         invitationModal.classList.remove("show");
       }
+
     });
+
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const target = document.querySelector(link.getAttribute("href"));
+
+  /* =========================
+     SMOOTH SCROLL
+  ========================== */
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+    link.addEventListener("click", function (event) {
+
+      const targetId = link.getAttribute("href");
+      const target = document.querySelector(targetId);
 
       if (target) {
+
         event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth" });
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
       }
+
     });
+
   });
+
 });
