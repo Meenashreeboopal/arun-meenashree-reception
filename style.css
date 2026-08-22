@@ -28,7 +28,7 @@ body.locked{overflow:hidden}
 .opening-image{
   position:absolute;
   inset:0;
-  background:url("assets/hands.jpg") center/cover no-repeat;
+  background:url("hands.jpg") center/cover no-repeat;
   filter:blur(.2px)
 }
 
