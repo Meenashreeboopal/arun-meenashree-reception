@@ -1004,3 +1004,30 @@ main{
     transform: translateY(-100px);
   }
 }
+
+  .petals{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:999;
+}
+
+.petals span{
+  position:absolute;
+  top:-10%;
+  font-size:22px;
+  animation:fall 6s linear infinite;
+}
+
+.petals span:nth-child(1){left:10%;animation-delay:0s;}
+.petals span:nth-child(2){left:30%;animation-delay:1s;}
+.petals span:nth-child(3){left:50%;animation-delay:2s;}
+.petals span:nth-child(4){left:70%;animation-delay:3s;}
+.petals span:nth-child(5){left:85%;animation-delay:4s;}
+
+@keyframes fall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+  }
+}
