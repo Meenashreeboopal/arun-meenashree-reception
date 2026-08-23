@@ -1129,3 +1129,35 @@ main{
     transform: translateY(0);
   }
 }
+.countdown-section{
+  text-align:center;
+  margin:32px 0;
+}
+
+.countdown-title{
+  color:#8b6b2e;
+  font-size:18px;
+  margin-bottom:14px;
+}
+
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.countdown div{
+  background:#fff8ef;
+  border:1px solid #d4af37;
+  border-radius:14px;
+  padding:12px;
+  min-width:70px;
+}
+
+.countdown span{
+  display:block;
+  font-size:26px;
+  font-weight:bold;
+  color:#b8860b;
+}
